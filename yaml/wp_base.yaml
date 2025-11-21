@@ -285,7 +285,7 @@ packages:
   SUPPLY_AIR_SETPOINT:                 !include { file: wp_generic.yaml, vars: { property: "SUPPLY_AIR_SETPOINT"      , update_interval: $interval_slow            , unit: "l/min", icon: "mdi:pump"  }}
   VOLUME_FLOW:                         !include { file: wp_generic.yaml, vars: { property: "VOLUME_FLOW"              , update_interval: $interval_slow            , unit: "l/min", icon: "mdi:pump"  }}
   FILTER_RUNTIME:                      !include { file: wp_generic.yaml, vars: { property: "FILTER_RUNTIME"          , update_interval: $interval_once_in_a_while , unit: "%"    , icon: "mdi:calendar"  }}
-  FILTER_RUNTIME_TAGE:                 !include { file: wp_generic.yaml, vars: { property: "FILTER_RUNTIME_DAYS"     , icon: "mdi:air-filter" , unit: "d" , update_interval: $interval_once_in_a_while }}  
+  FILTER_RUNTIME_DAYS:                 !include { file: wp_generic.yaml, vars: { property: "FILTER_RUNTIME_DAYS"     , icon: "mdi:air-filter" , unit: "d" , update_interval: $interval_once_in_a_while }}  
   LOW_PRESSURE_DISPLAY:                !include { file: wp_generic.yaml, vars: { property: "LOW_PRESSURE_DISPLAY"      , accuracy_decimals: "2" }}
   PUMP_CYCLES_MIN_OUTSIDE_TEMP:        !include { file: wp_generic.yaml, vars: { property: "PUMP_CYCLES_MIN_OUTSIDE_TEMP" , icon: "mdi:numeric"  }}
   SETPOINT_MAX_HC1:                    !include { file: wp_generic.yaml, vars: { property: "SETPOINT_MAX_HC1"          , unit: "°C", icon: "mdi:temperature-celsius" , target: "HK1", accuracy_decimals: "1" }}
