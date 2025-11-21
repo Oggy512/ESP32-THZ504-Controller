@@ -103,7 +103,7 @@ struct Property : public oe32trta::detail::Property {
     PROPERTY(FLOW_TEMP_ACTUAL, 0x000f, Type::et_dec_val);
     PROPERTY(STORAGE_TEMP_SETPOINT_DAY, 0x0013, Type::et_dec_val);
     PROPERTY(SETPOINT_MAX_HC1, 0x0028, Type::et_dec_val);
-    PROPERTY(SOMMERBETRIEB_TEMP, 0x0116, Type::et_dec_val);
+    PROPERTY(SUMMERMODE_TEMP, 0x0116, Type::et_dec_val);
     PROPERTY(SETPOINT_MIN_HC1, 0x012b, Type::et_dec_val);
     PROPERTY(HYSTERESIS_DHW, 0x0140, Type::et_dec_val);
     PROPERTY(BETRIEBS_STATUS, 0x0176);
@@ -116,6 +116,7 @@ struct Property : public oe32trta::detail::Property {
     PROPERTY(HEAT_RECOVERY_DAY_KWH, 0x03af);
     PROPERTY(HEAT_RECOVERY_TOTAL_KWH, 0x03b0);
     PROPERTY(HEAT_RECOVERY_TOTAL_MWH, 0x03b1);
+    PROPERTY(RESET_FILTER, 0x033b, Type::et_bool);
     PROPERTY(COOLING_ROOM_SETPOINT_DAY, 0x0569, Type::et_dec_val);
     PROPERTY(KUEHL_RAUMSOLL_ABWESEND, 0x056a, Type::et_dec_val);
     PROPERTY(KUEHL_RAUMSOLL_NACHT, 0x056b, Type::et_dec_val);
