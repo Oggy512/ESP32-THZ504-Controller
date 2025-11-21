@@ -35,8 +35,8 @@ substitutions:
   espclient_can_id: "0x6a2"
 
   # Home Assistant entities
-  entity_room_temperature: "sensor.durchschnittstemperatur_haus_ohne_keller"
-  entity_humidity: "sensor.durchschnitt_luftfeuchtigkeit_haus"
+  entity_room_temperature: "sensor.tna"
+  entity_humidity: "sensor.hna"
 
 #########################################
 #                                       #
@@ -142,7 +142,7 @@ button:
 #                                       #
 #########################################
 interval:
-  - interval: 250ms
+  - interval: 750ms #Default: 250ms
     then:
       - lambda: |-
           // Request sensor value one after another.
