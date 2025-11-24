@@ -49,3 +49,4 @@ esphome:
           queueRequest(${target}, Property::k${property_kwh});
 
 # Time-based energy calculations are handled by the main sntp_time platform in common.yaml
+  
