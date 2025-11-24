@@ -15,3 +15,4 @@ Property Property::getProperty(const std::uint16_t id) {
 }
 }  // namespace detail
 }  // namespace oe32trta
+    
