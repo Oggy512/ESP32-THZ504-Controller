@@ -1,6 +1,6 @@
 esphome:
   includes:
-    - src/custom_climate.h
+    - thz/src/custom_climate.h
   on_boot:
     priority: 100.0 # AFTER_CONNECTION
     then:
