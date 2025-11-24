@@ -41,10 +41,7 @@ esphome:
           });
 
           id(ELECTRIC_BACKUP_HEATING).add_on_state_callback([](const bool state){
-            float electricHeatingPower = 0.0f;
-            if (state && !isnan(id(BACKUP_HEATER_LEVEL_DHW).state)) {
-              electricHeatingPower = id(BACKUP_HEATER_LEVEL_DHW).state * 230.0 /*V*/ * 12.6 /*A*/;
-            }
+            const auto electricHeatingPower = state ? id(BACKUP_HEATER_LEVEL_DHW).state * 230.0 /*V*/ * 12.6 /*A*/ : 0.0f;
             id(ELECTRIC_HEATING_POWER).publish_state(electricHeatingPower);
           });
 
@@ -152,7 +149,6 @@ sensor:
     state_class: measurement
     device_class: power
     unit_of_measurement: "W"
-    lambda: "return 0.0f;"  # Initialize with 0W (updated by callback)
 
 #########################################
 #                                       #
@@ -263,7 +259,6 @@ packages:
   ROOM_TEMP_SETPOINT_NIGHT:            !include { file: wp_temperature.yaml, vars: { property: "ROOM_TEMP_SETPOINT_NIGHT"     , target: "HK1" , writable: "true" }}
   COOLING_ROOM_SETPOINT_DAY:           !include { file: wp_temperature.yaml, vars: { property: "COOLING_ROOM_SETPOINT_DAY"     , target: "HK1" , writable: "true" }}
   EVAPORATOR_TEMP:                     !include { file: wp_temperature.yaml, vars: { property: "EVAPORATOR_TEMP"  }}
-  EXHAUST_AIR_DEWPOINT:                !include { file: wp_temperature.yaml, vars: { property: "EXHAUST_AIR_DEWPOINT" }}
 
   VENT_LEVEL_DAY:                      !include { file: wp_ventilation.yaml, vars: { property: "VENT_LEVEL_DAY"     }}
   VENT_LEVEL_NIGHT:                    !include { file: wp_ventilation.yaml, vars: { property: "VENT_LEVEL_NIGHT"   }}
@@ -286,20 +281,20 @@ packages:
   SUPPLY_AIR_SETPOINT:                 !include { file: wp_generic.yaml, vars: { property: "SUPPLY_AIR_SETPOINT"      , update_interval: $interval_slow            , unit: "l/min", icon: "mdi:pump"  }}
   VOLUME_FLOW:                         !include { file: wp_generic.yaml, vars: { property: "VOLUME_FLOW"              , update_interval: $interval_slow            , unit: "l/min", icon: "mdi:pump"  }}
   FILTER_RUNTIME:                      !include { file: wp_generic.yaml, vars: { property: "FILTER_RUNTIME"          , update_interval: $interval_once_in_a_while , unit: "%"    , icon: "mdi:calendar"  }}
-  FILTER_RUNTIME_DAYS:                 !include { file: wp_generic.yaml, vars: { property: "FILTER_RUNTIME_DAYS"     , icon: "mdi:air-filter" , unit: "d" , update_interval: $interval_once_in_a_while }}  
   LOW_PRESSURE_DISPLAY:                !include { file: wp_generic.yaml, vars: { property: "LOW_PRESSURE_DISPLAY"      , accuracy_decimals: "2" }}
-  PUMP_CYCLES_MIN_OUTSIDE_TEMP:        !include { file: wp_generic.yaml, vars: { property: "PUMP_CYCLES_MIN_OUTSIDE_TEMP" , icon: "mdi:numeric"  }}
   SETPOINT_MAX_HC1:                    !include { file: wp_generic.yaml, vars: { property: "SETPOINT_MAX_HC1"          , unit: "°C", icon: "mdi:temperature-celsius" , target: "HK1", accuracy_decimals: "1" }}
   SETPOINT_MIN_HC1:                    !include { file: wp_generic.yaml, vars: { property: "SETPOINT_MIN_HC1"          , unit: "°C", icon: "mdi:temperature-celsius" , target: "HK1", accuracy_decimals: "1" }}
   FLOW_SHARE_HC1:                      !include { file: wp_generic.yaml, vars: { property: "FLOW_SHARE_HC1"            , unit: "%" , icon: "mdi:percent-box"         , target: "HK1" }}
-  BASE_POINT_HC1:                      !include { file: wp_generic.yaml, vars: { property: "BASE_POINT_HC1"             , unit: "°C", icon: "mdi:temperature-celsius" , target: "HK1", accuracy_decimals: "1" }}
-  DIFFERENTIAL_PRESSURE:               !include { file: wp_generic.yaml, vars: { property: "DIFFERENTIAL_PRESSURE"      , icon: "mdi:air-filter", unit: "Pa", update_interval: $interval_medium          }}
 
+  PUMP_CYCLES_MIN_OUTSIDE_TEMP:        !include { file: wp_generic.yaml, vars: { property: "PUMP_CYCLES_MIN_OUTSIDE_TEMP" , icon: "mdi:numeric"  }}
+  FILTER_RUNTIME_DAYS:                 !include { file: wp_generic.yaml, vars: { property: "FILTER_RUNTIME_DAYS"     , icon: "mdi:air-filter" , unit: "d" , update_interval: $interval_once_in_a_while }}  
+
+  SLOPE_HC1:                           !include { file: wp_number.yaml, vars: { property: "SLOPE_HC1"            , icon: "mdi:valve", target: "HK1", min: "0", max: "2.5", step: "0.01"}}
   BACKUP_HEATER_LEVEL_DHW:             !include { file: wp_number.yaml, vars: { property: "BACKUP_HEATER_LEVEL_DHW"                , min: "0" , max: "3"  }}
   DESIGN_POWER_HEATING:                !include { file: wp_number.yaml, vars: { property: "DESIGN_POWER_HEATING"       , min: "40", max: "100"}}
   DESIGN_POWER_COOLING:                !include { file: wp_number.yaml, vars: { property: "DESIGN_POWER_COOLING" , min: "30", max: "50" }}
   PUMP_SPEED_HEATING:                  !include { file: wp_number.yaml, vars: { property: "PUMP_SPEED_HEATING"         , step: "0.1" }}
-  HYSTERESIS_DHW:                      !include { file: wp_number.yaml, vars: { property: "HYSTERESIS_DHW"             , min: "2.0", max: "10.0", step: "0.1", unit: "°C" }}
+  HYSTERESIS_DHW:                      !include { file: wp_number.yaml, vars: { property: "HYSTERESIS_DHW"             , min: "2.0", max: "5.0", step: "0.1", unit: "°C" }}
   VENT_SUPPLY_LEVEL1:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL1", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
   VENT_SUPPLY_LEVEL2:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL2", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
   VENT_SUPPLY_LEVEL3:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL3", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
@@ -319,11 +314,12 @@ packages:
   DHW_ECO:                             !include { file: wp_switch.yaml, vars: { property: "DHW_ECO", icon: "mdi:sprout" }}
   COOLING_MODE:                        !include { file: wp_switch.yaml, vars: { property: "COOLING_MODE" , target: "HK1" }}
 
-  # Additional sensors originally from common.yaml to avoid duplicates
-  COMPRESSOR_STARTS:                   !include { file: wp_generic_combined.yaml, vars: { sensor_name: "COMPRESSOR_STARTS"           , scaled_property: "VERDICHTER_STARTS_K"       , property: "COMPRESSOR_STARTS"         , unit: ""   , accuracy_decimals: "0", scaler: "1000", icon: "mdi:counter" }}
-  HEAT_OUTPUT_DHW_TOTAL_MWH:           !include { file: wp_generic_combined.yaml, vars: { sensor_name: "HEAT_OUTPUT_DHW_TOTAL_MWH"   , scaled_property: "HEAT_OUTPUT_DHW_TOTAL_KWH"   , property: "HEAT_OUTPUT_DHW_TOTAL_MWH"   , unit: "MWh", accuracy_decimals: "3", icon: "mdi:fire" }}
-  HEAT_OUTPUT_HEATING_TOTAL_MWH:       !include { file: wp_generic_combined.yaml, vars: { sensor_name: "HEAT_OUTPUT_HEATING_TOTAL_MWH" , scaled_property: "HEAT_OUTPUT_HEATING_TOTAL_KWH" , property: "HEAT_OUTPUT_HEATING_TOTAL_MWH" , unit: "MWh", accuracy_decimals: "3", icon: "mdi:fire" }}
-
+#########################################
+#                                       #
+#   Additional Packages                 #
+#   to clean code and handle all in one #
+#########################################
+  EXHAUST_AIR_DEWPOINT:                !include { file: wp_temperature.yaml, vars: { property: "EXHAUST_AIR_DEWPOINT" }}
   STORAGE_TEMP_SETPOINT:               !include { file: wp_temperature.yaml, vars: { property: "STORAGE_TEMP_SETPOINT"          }}
   STORAGE_TEMP_ACTUAL:                 !include { file: wp_temperature.yaml, vars: { property: "STORAGE_TEMP_ACTUAL"      , update_interval: $interval_medium }}
   OUTSIDE_TEMP:                        !include { file: wp_temperature.yaml, vars: { property: "OUTSIDE_TEMP"     }}
@@ -332,16 +328,23 @@ packages:
   ROOM_TEMP_ACTUAL:                    !include { file: wp_temperature.yaml, vars: { property: "ROOM_TEMP_ACTUAL"              , target: "HK1" }}
   ADJUSTED_ROOM_TEMP_SETPOINT:         !include { file: wp_temperature.yaml, vars: { property: "ADJUSTED_ROOM_TEMP_SETPOINT"  , target: "HK1" }}
   FLOW_TEMP_SETPOINT:                  !include { file: wp_temperature.yaml, vars: { property: "FLOW_TEMP_SETPOINT"          , target: "HK1" }}
-
+  
+  DIFFERENTIAL_PRESSURE:               !include { file: wp_generic.yaml, vars: { property: "DIFFERENTIAL_PRESSURE"      , icon: "mdi:air-filter", unit: "Pa", update_interval: $interval_medium          }}
   ERROR_MESSAGE:                       !include { file: wp_generic.yaml, vars: { property: "ERROR_MESSAGE"      , icon: "mdi:alert-circle" }}
   ROOM_HUMIDITY:                       !include { file: wp_generic.yaml, vars: { property: "ROOM_HUMIDITY"        , interval: $interval_very_slow, unit: "%", icon: "mdi:water-percent", target: "HK1", accuracy_decimals: "1" }}
-  SLOPE_HC1:                           !include { file: wp_generic.yaml, vars: { property: "SLOPE_HC1"            , icon: "mdi:valve", target: "HK1", accuracy_decimals: "2" }}
-
+ 
   ROOM_INFLUENCE:                      !include { file: wp_number.yaml, vars: { property: "ROOM_INFLUENCE", target: "HK1" }}
+  BASE_POINT_HC1:                      !include { file: wp_number.yaml, vars: { property: "BASE_POINT_HC1"            , unit: "°C", icon: "mdi:temperature-celsius" , target: "HK1", accuracy_decimals: "1", min: "0" , max: "5", step: "0.1" }}
 
   ELECTRIC_ENERGY_DHW_TOTAL_KWH:       !include { file: wp_daily_energy_combined.yaml, vars: { sensor_name: "ELECTRIC_ENERGY_DHW_TOTAL_KWH"   , property_wh: "ELECTRIC_ENERGY_DHW_DAY_WH"   , property_kwh: "ELECTRIC_ENERGY_DHW_DAY_KWH"   }}
   ELECTRIC_ENERGY_HEATING_TOTAL_KWH:   !include { file: wp_daily_energy_combined.yaml, vars: { sensor_name: "ELECTRIC_ENERGY_HEATING_TOTAL_KWH" , property_wh: "ELECTRIC_ENERGY_HEATING_DAY_WH" , property_kwh: "ELECTRIC_ENERGY_HEATING_DAY_KWH" }}
   HEAT_OUTPUT_DHW_DAY_TOTAL_KWH:       !include { file: wp_daily_energy_combined.yaml, vars: { sensor_name: "HEAT_OUTPUT_DHW_DAY_TOTAL_KWH"     , property_wh: "HEAT_OUTPUT_DHW_DAY_WH"         , property_kwh: "HEAT_OUTPUT_DHW_DAY_KWH"         }}
   HEAT_OUTPUT_HEATING_DAY_TOTAL_KWH:   !include { file: wp_daily_energy_combined.yaml, vars: { sensor_name: "HEAT_OUTPUT_HEATING_DAY_TOTAL_KWH"   , property_wh: "HEAT_OUTPUT_HEATING_DAY_WH"       , property_kwh: "HEAT_OUTPUT_HEATING_DAY_KWH"       }}
 
+  COMPRESSOR_STARTS:                   !include { file: wp_generic_combined.yaml, vars: { sensor_name: "COMPRESSOR_STARTS"           , scaled_property: "VERDICHTER_STARTS_K"       , property: "COMPRESSOR_STARTS"         , unit: ""   , accuracy_decimals: "0", scaler: "1000", icon: "mdi:counter" }}
+  HEAT_OUTPUT_DHW_TOTAL_MWH:           !include { file: wp_generic_combined.yaml, vars: { sensor_name: "HEAT_OUTPUT_DHW_TOTAL_MWH"   , scaled_property: "HEAT_OUTPUT_DHW_TOTAL_KWH"   , property: "HEAT_OUTPUT_DHW_TOTAL_MWH"   , unit: "MWh", accuracy_decimals: "3", icon: "mdi:fire" }}
+  HEAT_OUTPUT_HEATING_TOTAL_MWH:       !include { file: wp_generic_combined.yaml, vars: { sensor_name: "HEAT_OUTPUT_HEATING_TOTAL_MWH" , scaled_property: "HEAT_OUTPUT_HEATING_TOTAL_KWH" , property: "HEAT_OUTPUT_HEATING_TOTAL_MWH" , unit: "MWh", accuracy_decimals: "3", icon: "mdi:fire" }}
+
   HEATPUMP_DATETIME:                   !include { file: wp_datetime.yaml }
+
+  FIRMWARE_VERSION:                    !include { file: wp_generic.yaml, vars: { property: "FIRMWARE_VERSION"     , icon: "mdi:code-block-tags" , update_interval: $interval_once_in_a_while }}
