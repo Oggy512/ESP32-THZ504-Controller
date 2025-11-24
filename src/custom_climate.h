@@ -115,8 +115,8 @@ class Heating : public CustomClimate {
     Heating(Sensor* current_temperature_sensor, Sensor* target_temperature_sensor, BinarySensor* heating_sensor,
             BinarySensor* cooling_sensor, BinarySensor* fan_sensor, const Property targetHeatingTemperature,
             const Property targetCoolingTemperature)
-        : CustomClimate({climate::CLIMATE_MODE_COOL, climate::CLIMATE_MODE_HEAT, climate::CLIMATE_MODE_AUTO,
-                         climate::CLIMATE_MODE_FAN_ONLY, climate::CLIMATE_MODE_OFF},
+        : CustomClimate({climate::CLIMATE_MODE_COOL, climate::CLIMATE_MODE_HEAT, climate::CLIMATE_MODE_FAN_ONLY,
+                         climate::CLIMATE_MODE_AUTO, climate::CLIMATE_MODE_OFF},
                         {climate::CLIMATE_PRESET_NONE, climate::CLIMATE_PRESET_HOME, climate::CLIMATE_PRESET_AWAY},
                         {std::make_pair(HK1, targetHeatingTemperature), std::make_pair(HK1, targetCoolingTemperature),
                          std::make_pair(HK2, targetCoolingTemperature)}) {
