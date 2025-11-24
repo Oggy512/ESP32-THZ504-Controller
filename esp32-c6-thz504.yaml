@@ -1,6 +1,6 @@
 esphome:
-  name: esp32-c6-thz504
-  friendly_name: ESP32-C6 THZ-504
+  name: esp32-thz504
+  friendly_name: ESP32-THZ-504
   platformio_options:
     build_flags:
       - "-std=gnu++2a"
@@ -35,7 +35,7 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: !secret thz504_api_enc
+    key: !secret esp32-thz504_api_enc
 
 ota:
   platform: esphome
@@ -72,13 +72,19 @@ sensor:
     name: "ESP32-C6 Internal Temperature"
     update_interval: 60s
 
+  - platform: debug
+    free:
+      name: "Heap Free"
+    cpu_frequency:
+      name: "CPU Frequency"
+
 # Memory and system info
 text_sensor:
-#  - platform: debug
+  - platform: debug
 #    device:
 #      name: "ESP32-C6 Device Info"
-#    reset_reason:
-#      name: "ESP32-C6 Reset Reason"
+    reset_reason:
+      name: "ESP32-C6 Reset Reason"
       
   - platform: wifi_info
     ip_address:
@@ -91,16 +97,11 @@ text_sensor:
   - platform: version
     name: "ESP32-C6 ESPHome Version"
 
-# Substitutions are now inherited from common.yaml
+# Substitutions are inherited from common.yaml
 
 # Time configuration is inherited from common.yaml
 
-#########################################
-#                                       #
-#   CAN configuration inherited from    #
-#   common.yaml with ESP32-C6 pins      #
-#                                       #
-#########################################
+# CAN configuration is inherited from common.yaml
 
 #########################################
 #                                       #
@@ -116,6 +117,7 @@ button:
 #   WiFi Configuration                  #
 #                                       #
 #########################################
+# Setup WiFi credentials
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
@@ -140,9 +142,7 @@ safe_mode:
 #                                       #
 #########################################
 packages:
-  thz504: !include yaml/thz504.yaml
-
-# CAN Bus Configuration is now inherited from common.yaml
+  thz504: !include thz/yaml/thz504.yaml
 
 # Status LED Automation - Visual system status
 interval:
