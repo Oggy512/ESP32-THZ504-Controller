@@ -32,3 +32,4 @@ esphome:
             CallbackHandler::instance().addCallback(std::make_pair(Manager,Property::k${property}),callback);
           }
           queueRequest(${target}, Property::k${property});
+  
