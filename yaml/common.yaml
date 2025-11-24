@@ -1,15 +1,15 @@
 esphome:
   includes:
-    - src/callback_handler.h
-    - src/communication.h
-    - src/mapper.h
-    - src/mapper.cpp
-    - src/property.h
-    - src/property.cpp
-    - src/simple_variant.h
-    - src/type.h
-    - src/type.cpp
-    - src/util.h
+    - thz/src/callback_handler.h
+    - thz/src/communication.h
+    - thz/src/mapper.h
+    - thz/src/mapper.cpp
+    - thz/src/property.h
+    - thz/src/property.cpp
+    - thz/src/simple_variant.h
+    - thz/src/type.h
+    - thz/src/type.cpp
+    - thz/src/util.h
   platformio_options:
     build_flags:
       - "-DESPCLIENT_ID=$espclient_can_id"
@@ -40,6 +40,12 @@ substitutions:
   #entity_room_temperature: "sensor.tna" # Use not existing id to turn off overwriting Room_Temp_Actual
   #entity_humidity: "sensor.hna"         # Use not existing id to turn off overwriting Room_Humidity_Actual
 
+#########################################
+#                                       #
+#   Packages                            #
+#                                       #
+#########################################
+# Package includes removed - handled by wp_base.yaml instead to avoid ID conflicts
 
 #########################################
 #                                       #
@@ -177,14 +183,6 @@ interval:
 
 #########################################
 #                                       #
-#   Packages                            #
-#                                       #
-#########################################
-# Package includes removed - handled by wp_base.yaml instead to avoid ID conflicts
-
-
-#########################################
-#                                       #
 #   Home Assistant Actions              #
 #                                       #
 #########################################
@@ -228,7 +226,8 @@ api:
 #########################################
 sensor:
   - platform: homeassistant
-    name: "Temperature Sensor From Home Assistant"
+    name: Temperature Sensor From Home Assistant
+    id: ha_temperature_sensor                         
     entity_id: $entity_room_temperature
     on_value:
       then:
@@ -237,7 +236,8 @@ sensor:
             id(gROOM_TEMP_ACTUAL) = x;
 
   - platform: homeassistant
-    name: "Humidity Sensor From Home Assistant"
+    name: Humidity Sensor From Home Assistant
+    id: ha_humidity_sensor                      
     entity_id: $entity_humidity
     on_value:
       then:
