@@ -5,6 +5,15 @@ std::optional<std::string> Mapper::getError(const std::uint16_t id) const {
     return (it != errorMap.cend()) ? std::make_optional(it->second) : std::nullopt;
 }
 
+std::optional<std::uint16_t> Mapper::getErrorId(const std::string& error) const {
+    for (const auto& element : errorMap) {
+        if (element.second == error) {
+            return element.first;
+        }
+    }
+    return {};
+}					
+															 
 std::optional<std::string> Mapper::getBetriebsart(const std::uint16_t id) const {
     const auto it = betriebsartMap.find(id);
     return (it != betriebsartMap.cend()) ? std::make_optional(it->second) : std::nullopt;
@@ -73,9 +82,14 @@ Mapper::Mapper() {
                 {0x0020, "FREEZE_PROTECTION"},
                 {0x0021, "NO_POWER"}};
 
+#if defined(TTF_07_C) | defined(WPL_13)
+    betriebsartMap = {{0x0000, "EMERGENCY_MODE"}, {0x0100, "STANDBY_MODE"}, {0x0200, "PROGRAM_MODE"},
+                      {0x0300, "COMFORT_MODE"},    {0x0400, "ECO_MODE"},          {0x0500, "DHW_MODE"}};
+#else
     betriebsartMap = {{0x0000, "EMERGENCY_MODE"},    {0x0100, "STANDBY_MODE"}, {0x0300, "DAY_MODE"},
                       {0x0400, "HOLIDAY_MODE"}, {0x0500, "DHW_MODE"},   {0x0B00, "AUTO_MODE"},
                       {0x0E00, "MANUAL_MODE"}};
+#endif
 
     kuehlmodusMap = {{0x0000, "SURFACE_COOLING"}, {0x0001, "FAN_COOLING"}};
 
