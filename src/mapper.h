@@ -40,4 +40,4 @@ class Mapper {
     std::unordered_map<std::uint16_t, std::string> passivkuehlungMap;
 };
 
-#endif
+#endif   
