@@ -295,12 +295,12 @@ packages:
   DESIGN_POWER_COOLING:                !include { file: wp_number.yaml, vars: { property: "DESIGN_POWER_COOLING" , min: "30", max: "50" }}
   PUMP_SPEED_HEATING:                  !include { file: wp_number.yaml, vars: { property: "PUMP_SPEED_HEATING"         , step: "0.1" }}
   HYSTERESIS_DHW:                      !include { file: wp_number.yaml, vars: { property: "HYSTERESIS_DHW"             , min: "2.0", max: "5.0", step: "0.1", unit: "°C" }}
-  VENT_SUPPLY_LEVEL1:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL1", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
-  VENT_SUPPLY_LEVEL2:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL2", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
-  VENT_SUPPLY_LEVEL3:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL3", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
-  VENT_EXHAUST_LEVEL1:                 !include { file: wp_number.yaml, vars: { property: "VENT_EXHAUST_LEVEL1", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
-  VENT_EXHAUST_LEVEL2:                 !include { file: wp_number.yaml, vars: { property: "VENT_EXHAUST_LEVEL2", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
-  VENT_EXHAUST_LEVEL3:                 !include { file: wp_number.yaml, vars: { property: "VENT_EXHAUST_LEVEL3", min: "0.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
+  VENT_SUPPLY_LEVEL1:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL1", min: "10.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
+  VENT_SUPPLY_LEVEL2:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL2", min: "80.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
+  VENT_SUPPLY_LEVEL3:                  !include { file: wp_number.yaml, vars: { property: "VENT_SUPPLY_LEVEL3", min: "80.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
+  VENT_EXHAUST_LEVEL1:                 !include { file: wp_number.yaml, vars: { property: "VENT_EXHAUST_LEVEL1", min: "10.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
+  VENT_EXHAUST_LEVEL2:                 !include { file: wp_number.yaml, vars: { property: "VENT_EXHAUST_LEVEL2", min: "80.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
+  VENT_EXHAUST_LEVEL3:                 !include { file: wp_number.yaml, vars: { property: "VENT_EXHAUST_LEVEL3", min: "80.0", max: "300.0", unit: "m³/h", icon: "mdi:air-filter"  }}
   SUMMERMODE_TEMP:                     !include { file: wp_number.yaml, vars: { property: "SUMMERMODE_TEMP"         , min: "10.0", max: "25.0" , step: "0.5" , unit: "°C" , icon: "mdi:sun-thermometer"  }}
 
   HEAT_RECOVERY_DAY_TOTAL_KWH:         !include { file: wp_daily_energy_combined.yaml, vars: { sensor_name: "HEAT_RECOVERY_DAY_TOTAL_KWH"      , property_wh: "HEAT_RECOVERY_DAY_WH"  , property_kwh: "HEAT_RECOVERY_DAY_KWH"  }}
