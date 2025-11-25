@@ -1,15 +1,15 @@
 esphome:
   includes:
-    - thz/src/callback_handler.h
-    - thz/src/communication.h
-    - thz/src/mapper.h
-    - thz/src/mapper.cpp
-    - thz/src/property.h
-    - thz/src/property.cpp
-    - thz/src/simple_variant.h
-    - thz/src/type.h
-    - thz/src/type.cpp
-    - thz/src/util.h
+    - local_code/thz/src/callback_handler.h
+    - local_code/thz/src/communication.h
+    - local_code/thz/src/mapper.h
+    - local_code/thz/src/mapper.cpp
+    - local_code/thz/src/property.h
+    - local_code/thz/src/property.cpp
+    - local_code/thz/src/simple_variant.h
+    - local_code/thz/src/type.h
+    - local_code/thz/src/type.cpp
+    - local_code/thz/src/util.h
   platformio_options:
     build_flags:
       - "-DESPCLIENT_ID=$espclient_can_id"
