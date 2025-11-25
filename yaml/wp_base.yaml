@@ -1,6 +1,6 @@
 esphome:
   includes:
-    - thz/src/custom_climate.h
+    - local_code/thz/src/custom_climate.h
   on_boot:
     priority: 100.0 # AFTER_CONNECTION
     then:
@@ -156,7 +156,7 @@ sensor:
 #                                       #
 #########################################
 external_components:
-  - source: components
+  - source: local_code/thz/components
 
 climate:
   - platform: custom
@@ -347,4 +347,5 @@ packages:
 
   HEATPUMP_DATETIME:                   !include { file: wp_datetime.yaml }
 
+## TEST
   FIRMWARE_VERSION:                    !include { file: wp_generic.yaml, vars: { property: "FIRMWARE_VERSION"     , icon: "mdi:code-block-tags" , update_interval: $interval_once_in_a_while }}
