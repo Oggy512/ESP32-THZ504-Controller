@@ -80,6 +80,9 @@ esphome:
             id(HEATUP_PROGRAM_ACTIVE).publish_state(status_bits.test(14U));
           });
           scheduleRequest(Kessel, Property::kBETRIEBS_STATUS, std::chrono::seconds(10));
+          
+          // Query firmware only once
+          scheduleRequest(Kessel, Property::kFIRMWARE_VERSION, std::chrono::seconds(10));
 
 #########################################
 #                                       #
@@ -288,6 +291,7 @@ packages:
 
   PUMP_CYCLES_MIN_OUTSIDE_TEMP:        !include { file: wp_generic.yaml, vars: { property: "PUMP_CYCLES_MIN_OUTSIDE_TEMP" , icon: "mdi:numeric"  }}
   FILTER_RUNTIME_DAYS:                 !include { file: wp_generic.yaml, vars: { property: "FILTER_RUNTIME_DAYS"     , icon: "mdi:air-filter" , unit: "d" , update_interval: $interval_once_in_a_while }}  
+  FIRMWARE_VERSION:                    !include { file: wp_generic.yaml, vars: { property: "FIRMWARE_VERSION"     , icon: "mdi:code-block-tags" , accuracy_decimals: "2" }}
 
   SLOPE_HC1:                           !include { file: wp_number.yaml, vars: { property: "SLOPE_HC1"            , icon: "mdi:valve", target: "HK1", min: "0", max: "2.5", step: "0.01"}}
   BACKUP_HEATER_LEVEL_DHW:             !include { file: wp_number.yaml, vars: { property: "BACKUP_HEATER_LEVEL_DHW"                , min: "0" , max: "3"  }}
@@ -332,7 +336,7 @@ packages:
   DIFFERENTIAL_PRESSURE:               !include { file: wp_generic.yaml, vars: { property: "DIFFERENTIAL_PRESSURE"      , icon: "mdi:air-filter", unit: "Pa", update_interval: $interval_medium          }}
   ERROR_MESSAGE:                       !include { file: wp_generic.yaml, vars: { property: "ERROR_MESSAGE"      , icon: "mdi:alert-circle" }}
   ROOM_HUMIDITY:                       !include { file: wp_generic.yaml, vars: { property: "ROOM_HUMIDITY"        , interval: $interval_very_slow, unit: "%", icon: "mdi:water-percent", target: "HK1", accuracy_decimals: "1" }}
- 
+
   ROOM_INFLUENCE:                      !include { file: wp_number.yaml, vars: { property: "ROOM_INFLUENCE", target: "HK1" }}
   BASE_POINT_HC1:                      !include { file: wp_number.yaml, vars: { property: "BASE_POINT_HC1"            , unit: "°C", icon: "mdi:temperature-celsius" , target: "HK1", accuracy_decimals: "1", min: "0" , max: "5", step: "0.1" }}
 
@@ -346,6 +350,3 @@ packages:
   HEAT_OUTPUT_HEATING_TOTAL_MWH:       !include { file: wp_generic_combined.yaml, vars: { sensor_name: "HEAT_OUTPUT_HEATING_TOTAL_MWH" , scaled_property: "HEAT_OUTPUT_HEATING_TOTAL_KWH" , property: "HEAT_OUTPUT_HEATING_TOTAL_MWH" , unit: "MWh", accuracy_decimals: "3", icon: "mdi:fire" }}
 
   HEATPUMP_DATETIME:                   !include { file: wp_datetime.yaml }
-
-## TEST
-  FIRMWARE_VERSION:                    !include { file: wp_generic.yaml, vars: { property: "FIRMWARE_VERSION"     , icon: "mdi:code-block-tags" , update_interval: $interval_once_in_a_while }}
