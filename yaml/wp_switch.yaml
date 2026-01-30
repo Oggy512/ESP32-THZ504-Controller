@@ -10,10 +10,10 @@ switch:
     restore_mode: RESTORE_DEFAULT_OFF
     turn_on_action:
       - lambda: |-
-          sendData(${target}, Property::k${property}, static_cast<std::uint16_t>(true));
+          queueTransmission(${target}, Property::k${property}, static_cast<std::uint16_t>(true));
     turn_off_action:
       - lambda: |-
-          sendData(${target}, Property::k${property}, static_cast<std::uint16_t>(false));
+          queueTransmission(${target}, Property::k${property}, static_cast<std::uint16_t>(false));
 
 esphome:
   on_boot:
@@ -27,4 +27,3 @@ esphome:
               id(${property}).publish_state(value);
           });
           queueRequest(${target}, Property::k${property});
-  
