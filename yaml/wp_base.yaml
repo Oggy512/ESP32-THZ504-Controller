@@ -108,7 +108,7 @@ select:
         - lambda: |-
             const auto passivkuehlungId = Mapper::instance().getPassivkuehlungId(x);
             if(passivkuehlungId.has_value()) {
-              sendData(Kessel, Property::kPASSIVE_COOLING, passivkuehlungId.value());
+              queueTransmission(Kessel, Property::kPASSIVE_COOLING, passivkuehlungId.value());
             }
 
   - platform: template
@@ -131,7 +131,7 @@ select:
         - lambda: |-
             const auto betriebsartId = Mapper::instance().getBetriebsartId(x);
             if(betriebsartId.has_value()) {
-              sendData(Kessel, Property::kPROGRAM_SWITCH, betriebsartId.value());
+              queueTransmission(Kessel, Property::kPROGRAM_SWITCH, betriebsartId.value());
             }
 
 #########################################
